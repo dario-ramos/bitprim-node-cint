@@ -73,11 +73,15 @@ endif()
 
 # Require bitprim-node of at least version 3.0.0 and output ${bitprim_node_CPPFLAGS/LIBS/PKG}.
 #------------------------------------------------------------------------------
+if (UNIX)
+  set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "/usr/local/lib/cmake")
+elseif (WIN32)
+  set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "cmake")
+endif()
+
 if (NOT TARGET bitprim-node)
   find_package(bitprim-node 3.0.0 REQUIRED)
 endif()
-
-
 
 
 # Set flags.
