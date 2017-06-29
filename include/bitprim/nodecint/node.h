@@ -15,6 +15,10 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @file node.h
+ * @brief Functions for manipulating a node in the network
+ *
  */
 
 #ifndef BITPRIM_NODE_CINT_FULL_NODE_H_
@@ -29,12 +33,20 @@ extern "C" {
 typedef struct node* node_t;
 
 
+/**
+ * @brief Create a new node instance
+ * @param path Points to node configuration file
+ * @return Handle to new node instance. Must be released by calling node_destruct()
+ */
 BITPRIM_EXPORT
-// node_t node_construct(char const* person, error_t* out_error);
 node_t node_construct(char const* path);
 
+/**
+ * @brief Release memory held by node
+ * @param node Handle to a node instance
+ */
 BITPRIM_EXPORT
-void node_destruct(node_t obj);
+void node_destruct(node_t node);
 
 #ifdef __cplusplus
 } // extern "C"
