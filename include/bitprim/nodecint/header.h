@@ -15,6 +15,10 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @file header.h
+ * @brief Functions for manipulating a block header
+ *
  */
 
 #ifndef BITPRIM_NODE_CINT_HEADER_H_
@@ -30,6 +34,10 @@
 extern "C" {
 #endif
 
+/**
+ * @brief Releases memory held by the header object
+ * @param header Handle to the header instance
+ */
 BITPRIM_EXPORT
 void header_destruct(header_t header);
 
