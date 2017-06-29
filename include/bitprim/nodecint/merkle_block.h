@@ -15,6 +15,10 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @file merkle_block.h
+ * @brief Functions for manipulating Merkle blocks
+ *
  */
 
 #ifndef BITPRIM_NODE_CINT_MERKLE_BLOCK_H_
@@ -30,27 +34,67 @@
 extern "C" {
 #endif
 
+/**
+ * @brief Get the block's n-th hash
+ * @param block Handle to a Merkle block instance
+ * @param n Index for selecting hash
+ * @return Handle to Merkle block's n-th hash. Must be released by calling delete[]
+ */
 BITPRIM_EXPORT
 hash_t merkle_block_hash_nth(merkle_block_t block, size_t n);
 
+/**
+ * @brief Get Merkle block header
+ * @param block Handle to a Merkle block instance
+ * @return Handle to Merkle block header. Must be released by calling header_destruct()
+ */
 BITPRIM_EXPORT
 header_t merkle_block_header(merkle_block_t block);
 
+/**
+ * @brief Determine if a Merkle block is valid
+ * @param block Handle to a Merkle block instance
+ * @return True (non zero) iif the Merkle block is valid
+ */
 BITPRIM_EXPORT
-int merkle_block_is_valid(merkle_block_t block);
+int /* bool */ merkle_block_is_valid(merkle_block_t block);
 
+/**
+ * @brief Get Merkle block hash count
+ * @param block Handle to a Merkle block instance
+ * @return The Merkle block hash count
+ */
 BITPRIM_EXPORT
 size_t merkle_block_hash_count(merkle_block_t block);
 
+/**
+ * @brief Get Merkle block serialized size
+ * @param block Handle to a Merkle block instance
+ * @param version Protocol version
+ * @return The Merkle block serialized size
+ */
 BITPRIM_EXPORT
 size_t merkle_block_serialized_size(merkle_block_t block, uint32_t version);
 
+/**
+ * @brief Get Merkle block transaction count
+ * @param block Handle to a Merkle block instance
+ * @return Merkle block transaction count
+ */
 BITPRIM_EXPORT
 size_t merkle_block_total_transaction_count(merkle_block_t block);
 
+/**
+ * @brief Release memory held by Merkle block instance
+ * @param block Handle to a Merkle block instance
+ */
 BITPRIM_EXPORT
 void merkle_block_destruct(merkle_block_t block);
 
+/**
+ * @brief Reset Merkle block
+ * @param block Handle to a Merkle block instance
+ */
 BITPRIM_EXPORT
 void merkle_block_reset(merkle_block_t block);
 
