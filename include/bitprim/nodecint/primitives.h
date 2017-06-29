@@ -33,6 +33,9 @@
 extern "C" {
 #endif
 
+/**
+ * @brief 0 = output, 1 = spend
+ */
 typedef enum point_kind {output = 0, spend = 1} point_kind_t;
 
 /**

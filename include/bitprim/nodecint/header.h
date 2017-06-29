@@ -116,7 +116,6 @@ void header_set_nonce(header_t header, uint32_t nonce);
 /**
  * @brief Get previous block hash
  * @param header Handle to a header instance
- * @return Previous block hash
  */
 BITPRIM_EXPORT
 hash_t header_previous_block_hash(header_t header);
@@ -124,7 +123,7 @@ hash_t header_previous_block_hash(header_t header);
 /**
  * @brief Get header Merkle
  * @param header Handle to a header instance
- * @return Header Merkle
+ * @return Header Merkle hash. Must be released by calling delete[]
  */
 BITPRIM_EXPORT
 hash_t header_merkle(header_t header);
