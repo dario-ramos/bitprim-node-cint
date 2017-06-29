@@ -15,6 +15,10 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @file word_list.h
+ * @brief Functions for manipulating a word list
+ *
  */
 
 #ifndef BITPRIM_NODE_CINT_WORD_LIST_H
@@ -30,12 +34,25 @@
 extern "C" {
 #endif
 
+/**
+ * @brief Create a new word list instance
+ * @return Handle to new word list instance. Must be released by calling word_list_destruct()
+ */
 BITPRIM_EXPORT
 word_list_t word_list_construct();
 
+/**
+ * Add a word to the word list
+ * @param word_list Handle to a word list instance
+ * @param word New word
+ */
 BITPRIM_EXPORT
 void word_list_add_word(word_list_t word_list, const char* word);
 
+/**
+ * @brief Release memory held by word list object
+ * @param word_list Handle to a word list instance
+ */
 BITPRIM_EXPORT
 void word_list_destruct(word_list_t word_list);
 
