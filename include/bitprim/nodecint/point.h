@@ -15,6 +15,10 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @file point.h
+ * @brief Functions for manipulating a generic point
+ *
  */
 
 #ifndef BITPRIM_NODE_CINT_POINT_H
@@ -30,15 +34,35 @@
 extern "C" {
 #endif
 
+/**
+ * @brief Get point hash
+ * @param point Handle to point instance
+ * @return Point hash as byte array. Must be released by calling delete[]
+ */
 BITPRIM_EXPORT
 hash_t point_get_hash(point_t point);
 
+/**
+ * @brief Determine if point is valid
+ * @param point Handle to point instance
+ * @return True (non zero) iif point is valid
+ */
 BITPRIM_EXPORT
 int /*bool*/ point_is_valid(point_t point);
 
+/**
+ * @brief Get point index
+ * @param point Handle to point instance
+ * @return Point index
+ */
 BITPRIM_EXPORT
 uint32_t point_get_index(point_t point);
 
+/**
+ * @brief Get point checksum
+ * @param point Handle to point instance
+ * @return Point checksum
+ */
 BITPRIM_EXPORT
 uint64_t point_get_checksum(point_t point);
 
