@@ -15,6 +15,10 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @file output_point.h
+ * @brief Functions for manipulating a transaction's output's point
+ *
  */
 
 #ifndef BITPRIM_NODE_CINT_OUTPUT_POINT_H
@@ -26,16 +30,33 @@
 #include <bitprim/nodecint/visibility.h>
 #include <bitprim/nodecint/primitives.h>
 
-
+/**
+ * @brief Get the output point's hash
+ * @param output Handle to an output point instance
+ * @return Point hash as byte array. Must be released by calling delete[]
+ */
 BITPRIM_EXPORT
 hash_t output_point_get_hash(output_point_t output);
 
+/**
+ * @brief Create an empty output point
+ * @return Handle to new output point instance. Must be released by calling outpout_point_destruct()
+ */
 BITPRIM_EXPORT
 output_point_t output_point_construct();
 
+/**
+ * @brief Get output point index inside the point. Starts at 0 (zero) with the first one
+ * @param output Handle to an output point instance
+ * @return Output point index
+ */
 BITPRIM_EXPORT
 uint32_t output_point_get_index(output_point_t output);
 
+/**
+ * @brief Release memory held by output point
+ * @param output Handle to an output point instance
+ */
 BITPRIM_EXPORT
 void output_point_destruct(output_point_t output);
 
