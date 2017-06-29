@@ -41,39 +41,99 @@ extern "C" {
 BITPRIM_EXPORT
 void header_destruct(header_t header);
 
+/**
+ * @brief Determine if the header is valid
+ * @param header Handle to a header instance
+ * @return True (non zero) iif the header is valid
+ */
 BITPRIM_EXPORT
 int header_is_valid(header_t header);
 
+/**
+ * @brief Get header version
+ * @param header Handle to a header instance
+ * @return Header version
+ */
 BITPRIM_EXPORT
 uint32_t header_version(header_t header);
 
+/**
+ * @brief Set a header's version
+ * @param header Handle to a header instance
+ * @param version New version value
+ */
 BITPRIM_EXPORT
 void header_set_version(header_t header, uint32_t version);
 
+/**
+ * @brief Get header timestamp
+ * @param header Handle to a header instance
+ * @return Header timestamp
+ */
 BITPRIM_EXPORT
 uint32_t header_timestamp(header_t header);
 
+/**
+ * @brief Set header timestamp
+ * @param header Handle to a header instance
+ * @param timestamp New header timestamp value
+ */
 BITPRIM_EXPORT
 void header_set_timestamp(header_t header, uint32_t timestamp);
 
+/**
+ * @brief Get header bits
+ * @param header Handle to a header instance
+ * @return Header bits
+ */
 BITPRIM_EXPORT
 uint32_t header_bits(header_t header);
 
+/**
+ * @brief Set header bits
+ * @param header Handle to a header instance
+ * @param bits New header bits value
+ */
 BITPRIM_EXPORT
 void header_set_bits(header_t header, uint32_t bits);
 
+/**
+ * @brief Get header nonce
+ * @param header Handle to a header instance
+ * @return Header nonce
+ */
 BITPRIM_EXPORT
 uint32_t header_nonce(header_t header);
 
+/**
+ * Set header nonce
+ * @param header Handle to a header instance
+ * @param nonce New header nonce value
+ */
 BITPRIM_EXPORT
 void header_set_nonce(header_t header, uint32_t nonce);
 
+/**
+ * @brief Get previous block hash
+ * @param header Handle to a header instance
+ * @return Previous block hash
+ */
 BITPRIM_EXPORT
 hash_t header_previous_block_hash(header_t header);
 
+/**
+ * @brief Get header Merkle
+ * @param header Handle to a header instance
+ * @return Header Merkle
+ */
 BITPRIM_EXPORT
 hash_t header_merkle(header_t header);
 
+/**
+ * @brief Get header hash
+ * @param header Handle to a header instance
+ * @return Header hash as byte array. Must be released by calling delete[]
+ */
 BITPRIM_EXPORT
 hash_t header_hash(header_t header);
 
