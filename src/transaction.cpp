@@ -136,7 +136,7 @@ size_t transaction_output_count(transaction_t transaction) {
     return tx_const_cpp(transaction).outputs().size();
 }
 
-transaction_t transaction_output_nth(transaction_t transaction, size_t n) {
+output_t transaction_output_nth(transaction_t transaction, size_t n) {
     //precondition: n >=0 && n < outputs().size()
 
     auto* tx = &tx_cpp(transaction);
@@ -148,7 +148,7 @@ size_t transaction_input_count(transaction_t transaction) {
     return tx_const_cpp(transaction).inputs().size();
 }
 
-transaction_t transaction_input_nth(transaction_t transaction, size_t n) {
+input_t transaction_input_nth(transaction_t transaction, size_t n) {
     //precondition: n >=0 && n < inputs().size()
 
     auto* tx = &tx_cpp(transaction);
