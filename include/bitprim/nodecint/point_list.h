@@ -15,6 +15,10 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @file point_list.h
+ * @brief Functions for manipulating a point list
+ *
  */
 
 #ifndef BITPRIM_NODE_CINT_POINT_LIST_H
@@ -30,12 +34,27 @@
 extern "C" {
 #endif
 
+/**
+ * @brief Get the list's n-th point
+ * @param point_list Handle to a point list instance
+ * @param n Index for the selected point. Starts at 0 (zero) with the first one
+ * @return Handle to selected point instance. Must be released with point_destruct()
+ */
 BITPRIM_EXPORT
 point_t point_list_nth(point_list_t point_list, size_t n);
 
+/**
+ * @brief Get point list count
+ * @param point_list Handle to a point list instance
+ * @return Point list count
+ */
 BITPRIM_EXPORT
 size_t point_list_count(point_list_t point_list);
 
+/**
+ * @brief Release memory held by point list instance
+ * @param point_list Handle to a point list instance
+ */
 BITPRIM_EXPORT
 void point_list_destruct(point_list_t point_list);
 
