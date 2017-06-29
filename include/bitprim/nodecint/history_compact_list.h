@@ -15,6 +15,10 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @file history_compact_list.h
+ * @brief Functions for manipulating a history list
+ *
  */
 
 #ifndef BITPRIM_NODE_CINT_HISTORY_COMPACT_LIST_H
@@ -30,12 +34,27 @@
 extern "C" {
 #endif
 
+/**
+ * @brief Release memory held by a history compact list instance
+ * @param history_compact_list Handle to a history compact list instance
+ */
 BITPRIM_EXPORT
 void history_compact_list_destruct(history_compact_list_t history_compact_list);
 
+/**
+ * @brief Get the amount of entries in the list
+ * @param history_compact_list Handle to a history compact list instance
+ * @return Entry count
+ */
 BITPRIM_EXPORT
 size_t history_compact_list_count(history_compact_list_t history_compact_list);
 
+/**
+ * @brief Get the list's n-th entry
+ * @param history_list Handle to a history compact list instance
+ * @param n Index for selecting an entry. Starts at 0 (zero) for the first one
+ * @return Handle to a history compact entry. Must be released by calling history_compact_destruct()
+ */
 BITPRIM_EXPORT
 history_compact_t history_compact_list_nth(history_compact_list_t history_list, size_t n);
 
