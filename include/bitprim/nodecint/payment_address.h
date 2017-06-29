@@ -15,6 +15,10 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @file payment_address.h
+ * @brief Functions for manipulating a payment address
+ *
  */
 
 #ifndef BITPRIM_NODE_CINT_PAYMENT_ADDRESS_H
@@ -30,15 +34,34 @@
 extern "C" {
 #endif
 
+/**
+ * @brief Encode a payment address
+ * @param payment_address Handle to a payment address instance
+ * @return Encoded payment address
+ */
 BITPRIM_EXPORT
 char const* payment_address_encoded(payment_address_t payment_address);
 
+/**
+ * @brief Create a payment address from a string
+ * @param address String representing a payment address
+ * @return Handle to encoded payment address. Must be released by calling payment_address_destruct()
+ */
 BITPRIM_EXPORT
 payment_address_t payment_address_construct_from_string(char const* address);
 
+/**
+ * @brief Get payment address version
+ * @param payment_address Handle to a payment address instance
+ * @return Payment address version
+ */
 BITPRIM_EXPORT
 uint8_t version(payment_address_t payment_address);
 
+/**
+ * @brief Release memory held by payment address instance
+ * @param payment_address Handle to a payment address instance
+ */
 BITPRIM_EXPORT
 void payment_address_destruct(payment_address_t payment_address);
 
