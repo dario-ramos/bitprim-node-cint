@@ -35,7 +35,6 @@
 #include <bitprim/nodecint/history_compact_list.h>
 #include <bitprim/nodecint/input.h>
 #include <bitprim/nodecint/merkle_block.h>
-#include <bitprim/nodecint/node.h>
 #include <bitprim/nodecint/output.h>
 #include <bitprim/nodecint/output_point.h>
 #include <bitprim/nodecint/point.h>

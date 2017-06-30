@@ -331,6 +331,7 @@ void fetch_transaction(executor_t exec, hash_t hash, int require_confirmed, tran
  * already been confirmed
  * @param[out] transaction Block
  * @param[out] ret_height Block height
+ * @param[out] index Transaction index inside the block (zero-based, i.e. the first one is zero)
  * @return Error code. Zero for success, non zero for error
  */
 BITPRIM_EXPORT

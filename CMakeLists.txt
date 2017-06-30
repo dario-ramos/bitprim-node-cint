@@ -217,7 +217,6 @@ add_library(bitprim-node-cint ${MODE}
         src/history_compact_list.cpp
         src/input.cpp
         src/merkle_block.cpp
-        src/node.cpp
         src/output.cpp
         src/output_point.cpp
         src/parser.cpp
@@ -342,7 +341,6 @@ set(_bitprim_headers
         # include_bitcoin_HEADERS =
         include/bitcoin/node.hpp
         # include_bitcoin_node_HEADERS =
-        include/bitprim/nodecint/node.h
         include/bitprim/nodecint/executor_c.h
         include/bitprim/nodecint/executor.hpp
         include/bitprim/nodecint/parser.hpp
