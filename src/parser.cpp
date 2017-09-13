@@ -430,7 +430,7 @@ libbitcoin::options_metadata parser::load_settings() {
     ;
 
     std::cout << "*********** ********* configured.network.bitcoin_cash: " << configured.network.bitcoin_cash << std::endl;
-    set_bitcoin_cash(configured.network.bitcoin_cash);
+    libbitcoin::set_bitcoin_cash(configured.network.bitcoin_cash);
 
     return description;
 }
