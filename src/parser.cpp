@@ -24,6 +24,8 @@
 #include <string>
 #include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
+
+#include <bitcoin/bitcoin/bitcoin_cash_support.hpp>
 #include <bitcoin/blockchain.hpp>
 #include <bitcoin/network.hpp>
 #include <bitcoin/node/full_node.hpp>
@@ -84,6 +86,9 @@ libbitcoin::options_metadata parser::load_environment() {
 }
 
 libbitcoin::options_metadata parser::load_settings() {
+
+    std::cout << "*********** ********* configured.network.bitcoin_cash: " << configured.network.bitcoin_cash << std::endl;
+
     libbitcoin::options_metadata description("settings");
     description.add_options()
     /* [log] */
@@ -248,6 +253,12 @@ libbitcoin::options_metadata parser::load_settings() {
         value<libbitcoin::config::endpoint::list>(&configured.network.seeds),
         "A seed node for initializing the host pool, multiple entries allowed."
     )
+    (
+        "network.bitcoin_cash",
+        value<bool>(&configured.network.bitcoin_cash),
+        "Use Bitcoin Cash (true) or Bitcoin Legacy (false), defaults to false."
+    )
+
 
     /* [database] */
     (
@@ -417,6 +428,9 @@ libbitcoin::options_metadata parser::load_settings() {
         "The lower limit of address and spend indexing, defaults to 0."
     )
     ;
+
+    std::cout << "*********** ********* configured.network.bitcoin_cash: " << configured.network.bitcoin_cash << std::endl;
+    set_bitcoin_cash(configured.network.bitcoin_cash);
 
     return description;
 }
