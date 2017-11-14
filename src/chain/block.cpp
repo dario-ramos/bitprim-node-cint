@@ -76,6 +76,11 @@ hash_t chain_block_hash(block_t block) {
     return bitprim::to_hash_t(hash_cpp);
 }
 
+void chain_block_hash_out(block_t block, hash_t* out_hash) {
+    auto const& hash_cpp = chain_block_const_cpp(block).hash();
+    std::memcpy(out_hash->hash, hash_cpp.data(), BITCOIN_HASH_SIZE);
+}
+
 // Warning: breaking change
 uint64_t /*size_t*/ chain_block_transaction_count(block_t block) {
     return chain_block_const_cpp(block).transactions().size();
@@ -142,6 +147,11 @@ hash_t chain_block_generate_merkle_root(block_t block) {
     return bitprim::to_hash_t(hash_cpp);
 }
 
+void chain_block_generate_merkle_root_out(block_t block, hash_t* out_merkle) {
+    auto hash_cpp = chain_block_const_cpp(block).generate_merkle_root();
+    std::memcpy(out_merkle->hash, hash_cpp.data(), BITCOIN_HASH_SIZE);
+}
+
 uint64_t /*size_t*/ chain_block_signature_operations(block_t block) {
     return chain_block_const_cpp(block).signature_operations();
 }
@@ -158,8 +168,8 @@ int /*bool*/ chain_block_is_extra_coinbases(block_t block) {
     return static_cast<int>(chain_block_const_cpp(block).is_extra_coinbases());
 }
 
-int /*bool*/ chain_block_is_final(block_t block, uint64_t /*size_t*/ height) {
-    return static_cast<int>(chain_block_const_cpp(block).is_final(height));
+int /*bool*/ chain_block_is_final(block_t block, uint64_t /*size_t*/ height, uint32_t block_time) {
+    return static_cast<int>(chain_block_const_cpp(block).is_final(height, block_time));
 }
 
 int /*bool*/ chain_block_is_distinct_transaction_set(block_t block) {
@@ -181,8 +191,6 @@ int /*bool*/ chain_block_is_internal_double_spend(block_t block) {
 int /*bool*/ chain_block_is_valid_merkle_root(block_t block) {
     return static_cast<int>(chain_block_const_cpp(block).is_valid_merkle_root());
 }
-
-
 
 //
 //bool from_data(const data_chunk& data);

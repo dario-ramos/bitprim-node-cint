@@ -63,6 +63,7 @@ executor::executor(libbitcoin::node::configuration const& config, std::ostream& 
 
 
     auto const& network = config_.network;
+    const auto verbose = network.verbose;
 
     libbitcoin::log::rotable_file const debug_file {
                     network.debug_file,
@@ -85,8 +86,9 @@ executor::executor(libbitcoin::node::configuration const& config, std::ostream& 
     libbitcoin::log::stream console_out(&output_, null_deleter());
     libbitcoin::log::stream console_err(&error_, null_deleter());
 
-    libbitcoin::log::initialize(debug_file, error_file, console_out, console_err);
-    handle_stop(initialize_stop);
+    // libbitcoin::log::initialize(debug_file, error_file, console_out, console_err);
+    libbitcoin::log::initialize(debug_file, error_file, console_out, console_err, verbose);
+    //handle_stop(initialize_stop);
 }
 
 
@@ -139,6 +141,7 @@ libbitcoin::node::full_node& executor::node() {
 }
 
 bool executor::run(libbitcoin::handle0 handler) {
+    // std::cout << "executor::run() -- std::this_thread::get_id(): " << std::this_thread::get_id() << std::endl;
 
     run_handler_ = std::move(handler);
 
@@ -165,24 +168,24 @@ bool executor::run(libbitcoin::handle0 handler) {
     return true;
 }
 
-bool executor::run_wait(libbitcoin::handle0 handler) {
+// bool executor::run_wait(libbitcoin::handle0 handler) {
 
-    run(std::move(handler));
+//     run(std::move(handler));
 
-    // Wait for stop.
-    stopping_.get_future().wait();
+//     // Wait for stop.
+//     stopping_.get_future().wait();
 
-    LOG_INFO(LOG_NODE) << BN_NODE_STOPPING;
+//     LOG_INFO(LOG_NODE) << BN_NODE_STOPPING;
 
-    // Close must be called from main thread.
-    if (node_->close()) {
-        LOG_INFO(LOG_NODE) << BN_NODE_STOPPED;
-    } else {
-        LOG_INFO(LOG_NODE) << BN_NODE_STOP_FAIL;
-    }
+//     // Close must be called from main thread.
+//     if (node_->close()) {
+//         LOG_INFO(LOG_NODE) << BN_NODE_STOPPED;
+//     } else {
+//         LOG_INFO(LOG_NODE) << BN_NODE_STOP_FAIL;
+//     }
 
-    return true;
-}
+//     return true;
+// }
 
 // Handle the completion of the start sequence and begin the run sequence.
 void executor::handle_started(libbitcoin::code const& ec) {
@@ -203,8 +206,6 @@ void executor::handle_started(libbitcoin::code const& ec) {
 
     // This is the beginning of the run sequence.
     node_->run(std::bind(&executor::handle_running, this, _1));
-
-
 }
 
 // This is the end of the run sequence.
@@ -229,35 +230,51 @@ void executor::handle_running(libbitcoin::code const& ec) {
 
 // This is the end of the stop sequence.
 void executor::handle_stopped(libbitcoin::code const& ec) {
-    stop(ec);
+    //stop(ec);
+    
+    //stop();
+
 }
 
 // Stop signal.
 // ----------------------------------------------------------------------------
 
-void executor::handle_stop(int code) {
-    // Reinitialize after each capture to prevent hard shutdown.
-    // Do not capture failure signals as calling stop can cause flush lock file
-    // to clear due to the aborted thread dropping the flush lock mutex.
-    //std::signal(SIGINT, handle_stop);
-    //std::signal(SIGTERM, handle_stop);
+//void executor::handle_stop(int code) {
+//    // Reinitialize after each capture to prevent hard shutdown.
+//    // Do not capture failure signals as calling stop can cause flush lock file
+//    // to clear due to the aborted thread dropping the flush lock mutex.
+//    //std::signal(SIGINT, handle_stop);
+//    //std::signal(SIGTERM, handle_stop);
+//
+//    if (code == initialize_stop) {
+//        return;
+//    }
+//
+//    LOG_INFO(LOG_NODE) << format(BN_NODE_SIGNALED) % code;
+//    //stop(libbitcoin::error::success);
+//    stop();
+//    node_
+//}
 
-    if (code == initialize_stop) {
-        return;
-    }
+//// Manage the race between console stop and server stop.
+//void executor::stop(libbitcoin::code const& ec) {
+//    static std::once_flag stop_mutex;
+//    std::call_once(stop_mutex, [&]() { stopping_.set_value(ec); });
+//}
 
-    LOG_INFO(LOG_NODE) << format(BN_NODE_SIGNALED) % code;
-    stop(libbitcoin::error::success);
+//void executor::stop() {
+//    stop(libbitcoin::error::success);
+//}
+
+bool executor::stop() {
+    // std::cout << "executor::stop() - 1\n";
+    bool res = node_->stop();
+    // std::cout << "executor::stop() - 2\n";
+    return res;
 }
 
-// Manage the race between console stop and server stop.
-void executor::stop(libbitcoin::code const& ec) {
-    static std::once_flag stop_mutex;
-    std::call_once(stop_mutex, [&]() { stopping_.set_value(ec); });
-}
-
-void executor::stop() {
-    stop(libbitcoin::error::success);
+bool executor::stopped() const {
+    return node_->stopped();
 }
 
 // Utilities.

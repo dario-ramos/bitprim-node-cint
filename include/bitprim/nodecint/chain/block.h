@@ -54,6 +54,9 @@ BITPRIM_EXPORT
 hash_t chain_block_hash(block_t block);
 
 BITPRIM_EXPORT
+void chain_block_hash_out(block_t block, hash_t* out_hash);
+
+BITPRIM_EXPORT
 uint64_t /*size_t*/ chain_block_transaction_count(block_t block);
 
 BITPRIM_EXPORT
@@ -86,6 +89,9 @@ BITPRIM_EXPORT
 hash_t chain_block_generate_merkle_root(block_t block);
 
 BITPRIM_EXPORT
+void chain_block_generate_merkle_root_out(block_t block, hash_t* out_merkle);
+
+BITPRIM_EXPORT
 uint64_t /*size_t*/ chain_block_signature_operations(block_t block);
 
 BITPRIM_EXPORT
@@ -98,7 +104,7 @@ BITPRIM_EXPORT
 int /*bool*/ chain_block_is_extra_coinbases(block_t block);
 
 BITPRIM_EXPORT
-int /*bool*/ chain_block_is_final(block_t block, uint64_t /*size_t*/ height);
+int /*bool*/ chain_block_is_final(block_t block, uint64_t /*size_t*/ height, uint32_t block_time);
 
 BITPRIM_EXPORT
 int /*bool*/ chain_block_is_distinct_transaction_set(block_t block);
@@ -114,9 +120,6 @@ int /*bool*/ chain_block_is_internal_double_spend(block_t block);
 
 BITPRIM_EXPORT
 int /*bool*/ chain_block_is_valid_merkle_root(block_t block);
-
-
-
 
 #ifdef __cplusplus
 } // extern "C"
