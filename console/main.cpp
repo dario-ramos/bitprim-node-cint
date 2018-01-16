@@ -45,7 +45,7 @@
 
 #include <bitcoin/bitcoin/message/transaction.hpp>
 #include <bitcoin/bitcoin/utility/binary.hpp>
-
+#include <bitcoin/bitcoin/wallet/hd_private.hpp>
 
 void print_hex(char const* data, size_t n) {
     while (n != 0) {
@@ -56,11 +56,14 @@ void print_hex(char const* data, size_t n) {
     printf("\n");
 }
 
-
-
-
-
-
+void print_hex(char const* data, size_t n) {
+    while (n != 0) {
+        printf("%2x", *data);
+        ++data;
+        --n;
+    }
+    printf("\n");
+}
 
 //int main(int argc, char* argv[]) {
 //    auto wl = word_list_construct();
@@ -500,13 +503,13 @@ int main(int argc, char* argv[]) {
     auto input_0 = chain_input_list_nth(input_list, 0);
 
     auto input_0_script = chain_input_script(input_0);
+
     size_t script_size = 0;
     auto* script_data = chain_script_to_data(input_0_script, 0, &script_size);
 
     auto script_len = strlen((const char*)script_data);
 
     print_hex((const char*)script_data, script_len);
-
     executor_destruct(exec);
 
     return 0;
