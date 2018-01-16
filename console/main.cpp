@@ -468,12 +468,10 @@ void hex2bin(const char* src, uint8_t* target) {
 }
 
 int main(int argc, char* argv[]) {
-	//using namespace std::chrono_literals;
 
     printf("hola -*-*-*-*-*-*-*-*-*-*--*-*-*-*-*-*-*-*-*-*-\n");
 
     executor_t exec = executor_construct("", stdout, stderr);
-	//executor_t exec = executor_construct("",  nullptr, nullptr);
 
     int res1 = executor_initchain(exec);
 
@@ -497,21 +495,17 @@ int main(int argc, char* argv[]) {
 
 	auto err = chain_get_transaction(chain, tx_hash, false, &tx, &height, &index);
 
-
     auto input_list = chain_transaction_inputs(tx);
     auto input_count = chain_input_list_count(input_list);
     auto input_0 = chain_input_list_nth(input_list, 0);
 
     auto input_0_script = chain_input_script(input_0);
-    auto* script_data = chain_script_to_data(input_0_script, 0, );
+    size_t script_size = 0;
+    auto* script_data = chain_script_to_data(input_0_script, 0, &script_size);
 
-    auto script_len = strlen(script_data);
+    auto script_len = strlen((const char*)script_data);
 
-    print_hex(script_data, script_len);
-
-	//while (true) {
-	//	std::this_thread::sleep_for(500ms);
-	//}
+    print_hex((const char*)script_data, script_len);
 
     executor_destruct(exec);
 
