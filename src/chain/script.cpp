@@ -64,6 +64,14 @@ char const* chain_script_to_string(script_t script, uint32_t active_forks) {
     return ret;
 }
 
+uint8_t const* chain_script_to_data(script_t script, int /*bool*/ prefix, uint64_t* /*size_t*/ out_size) {
+    auto script_data = chain_script_const_cpp(script).to_data(prefix);
+    auto* ret = (uint8_t*)malloc((script_data.size()) * sizeof(uint8_t)); // NOLINT
+    std::copy_n(script_data.begin(), script_data.size(), ret);
+    *out_size = script_data.size();
+    return ret;
+}
+
 uint64_t /*size_t*/ chain_script_sigops(script_t script, int /*bool*/ embedded) {
     return chain_script_const_cpp(script).sigops(embedded != 0);
 }
